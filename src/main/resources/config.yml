@@ -1,0 +1,17 @@
+# With debugging true, there will be a lot of console spam and chat spam to everyone with the permission "antixray.debug". I recommend keeping this false.
+Debug: false
+
+# This is the time in ticks (1s = 20 ticks) where if the player mines the Threshold amount of ores (defined below) inside this time,
+# they will be flagged up as maybe using xray.
+Scanning-Time: 1200 #1200 ticks = 60 seconds
+
+# If this amount of ores is broken in the Scanning-Time set above, they will be flagged as maybe using xray. With the default values,
+# it is basically saying "if a player mines 5 of the ores defined below in 60 seconds, flag them as maybe using xray".
+Threshold: 5
+
+
+# These blocks are what the plugin looks for when checking if someone could be using xray.
+Ores:
+  - DIAMOND_ORE
+  - EMERALD_ORE
+  - ANCIENT_DEBRIS

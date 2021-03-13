@@ -1,0 +1,12 @@
+name: AntiXray
+version: ${project.version}
+main: me.jharris.antixray.Main
+api-version: 1.16
+prefix: AntiXray
+authors: [ JHarris ]
+description: Find xrayers fast!
+commands:
+  axreload:
+    description: Reload the plugin
+    usage: /<command>
+    aliases: [axr, antixrayreload]
