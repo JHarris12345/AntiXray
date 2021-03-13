@@ -45,6 +45,8 @@ public final class Main extends JavaPlugin {
                         reloadConfig();
                         BlockMineEvent.rareores.clear();
                         for (String i : getConfig().getStringList("Ores")) BlockMineEvent.rareores.add(i);
+                        BlockMineEvent.worldblacklist.clear();
+                        for (String w : getConfig().getStringList("World-Blacklist"))BlockMineEvent.worldblacklist.add(w);
                         player.sendMessage(ChatColor.GREEN + "The config has been reloaded!");
                         System.out.println(ChatColor.WHITE + "[AntiXray] " + ChatColor.GREEN + "The config has been reloaded!");
                     } else {
@@ -53,6 +55,10 @@ public final class Main extends JavaPlugin {
 
                 } else {
                     reloadConfig();
+                    BlockMineEvent.rareores.clear();
+                    for (String i : getConfig().getStringList("Ores")) BlockMineEvent.rareores.add(i);
+                    BlockMineEvent.worldblacklist.clear();
+                    for (String w : getConfig().getStringList("World-Blacklist"))BlockMineEvent.worldblacklist.add(w);
                     System.out.println(ChatColor.WHITE + "[AntiXray] " + ChatColor.GREEN + "The config has been reloaded!");
                 }
             }

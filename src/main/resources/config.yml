@@ -9,9 +9,17 @@ Scanning-Time: 1200 #1200 ticks = 60 seconds
 # it is basically saying "if a player mines 5 of the ores defined below in 60 seconds, flag them as maybe using xray".
 Threshold: 5
 
-
 # These blocks are what the plugin looks for when checking if someone could be using xray.
 Ores:
   - DIAMOND_ORE
   - EMERALD_ORE
   - ANCIENT_DEBRIS
+
+# Worlds in this list will not flag anyone for possible xray
+World-Blacklist:
+  - world1
+  - world2
+  - world3
+
+# If this is false, players in creative mode will not get flagged for possible xray. It is recommended to keep this false
+CheckCreative: false

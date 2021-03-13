@@ -3,6 +3,7 @@ package me.jharris.antixray.Events;
 import me.jharris.antixray.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,11 +18,13 @@ public class BlockMineEvent implements Listener {
 
     Main plugin;
     public static List<String> rareores = new ArrayList<String>();
+    public static List<String> worldblacklist = new ArrayList<String>();
 
 
     public BlockMineEvent(Main plugin) {
         this.plugin = plugin;
-        for (String i : plugin.getConfig().getStringList("Ores"))rareores.add(i);
+        for (String i : plugin.getConfig().getStringList("Ores")) rareores.add(i);
+        for (String w : plugin.getConfig().getStringList("World-Blacklist")) worldblacklist.add(w);
     }
 
 
@@ -33,9 +36,11 @@ public class BlockMineEvent implements Listener {
 
         Block block = event.getBlock();
         String player = (event.getPlayer().getName());
+        Player p = event.getPlayer();
         Integer current = xrayers.get(player);
         Integer runtime = plugin.getConfig().getInt("Scanning-Time");
-        Integer runtimemessage = runtime/20;
+        boolean creative = plugin.getConfig().getBoolean("CheckCreative");
+        Integer runtimemessage = runtime / 20;
         Integer threshold = plugin.getConfig().getInt("Threshold");
         boolean debug = plugin.getConfig().getBoolean("Debug");
         String world = event.getBlock().getWorld().getName();
@@ -43,6 +48,10 @@ public class BlockMineEvent implements Listener {
         int ycord = event.getBlock().getLocation().getBlockY();
         int zcord = event.getBlock().getLocation().getBlockZ();
 
+
+        if (p.hasPermission("antixray.bypass")) return;
+        if (worldblacklist.contains(p.getLocation().getWorld().getName())) return;
+        if (!creative && p.getGameMode().equals(GameMode.CREATIVE)) return;
 
         if (rareores.contains(block.getType().name())) {
             if (!xrayers.containsKey(player)) {
@@ -56,17 +65,16 @@ public class BlockMineEvent implements Listener {
                             Bukkit.broadcast(ChatColor.RED + player + " might be using xray! (" + blocknumber + " rare ores mined in the last " + runtimemessage + "s at " + world + ": " + xcord + ", " + ycord + ", " + zcord + ")", "xray.alerts");
                             System.out.println("[AntiXray] " + player + " might be using xray at " + world + ": " + xcord + ", " + ycord + ", " + zcord);
                         } else {
-                            if(!debug) {
+                            if (!debug) {
                                 xrayers.remove(player);
-                            }else {
+                            } else {
                                 xrayers.remove(player);
                                 Bukkit.broadcast(ChatColor.RED + player + " wasn't using xray in the last " + runtimemessage + "s", "xray.debug");
                             }
                         }
-                    }
-                }, runtime);
+                    }}, runtime);
 
-                if(!debug) {
+                if (!debug) {
                     xrayers.put(player, 1);
                 } else {
                     xrayers.put(player, 1);
@@ -74,15 +82,15 @@ public class BlockMineEvent implements Listener {
                 }
 
             } else {
-                if(!debug) {
+                if (!debug) {
                     xrayers.put(player, current + 1);
-                }else {
+                } else {
                     xrayers.put(player, current + 1);
                     System.out.println(xrayers);
                 }
             }
         } else {
-            if(!debug) {
+            if (!debug) {
                 return;
             } else {
                 Bukkit.broadcast("No match " + block.getType().name(), "xray.debug");
