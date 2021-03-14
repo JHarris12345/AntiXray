@@ -10,3 +10,7 @@ commands:
     description: Reload the plugin
     usage: /<command>
     aliases: [axr, antixrayreload]
+  axalerts:
+    description: Toggle xray alerts
+    usage: /<command>
+    aliases: [axa,antixrayalerts]

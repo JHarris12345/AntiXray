@@ -1,6 +1,7 @@
 package me.jharris.antixray;
 
 import jdk.nashorn.internal.ir.Block;
+import me.jharris.antixray.Commands.Alerts;
 import me.jharris.antixray.Events.BlockMineEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -16,6 +17,7 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         System.out.println("The plugin has been enabled!");
         getServer().getPluginManager().registerEvents(new BlockMineEvent(this),this);
+        getServer().getPluginCommand("axalerts").setExecutor(new Alerts(this));
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
