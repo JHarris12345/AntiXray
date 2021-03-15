@@ -21,25 +21,38 @@ public class Alerts implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender instanceof Player) {
-            Player player = (Player) sender;
-            if (player.hasPermission("xray.alerts")) {
-                if (alertslist.contains(player.getName())) {
-                    alertslist.remove(player.getName());
-                    player.sendMessage(ChatColor.GREEN + "You have enabled xray alerts");
+
+        if(args.length == 0) {
+            if(sender instanceof Player) {
+                Player player = (Player) sender;
+                if (player.hasPermission("xray.alerts")) {
+                    if (alertslist.contains(player.getName())) {
+                        alertslist.remove(player.getName());
+                        player.sendMessage(ChatColor.GREEN + "You have enabled xray alerts");
+
+                    } else {
+                        alertslist.add(player.getName());
+                        player.sendMessage(ChatColor.RED + "You have disabled xray alerts");
+                    }
 
                 } else {
-                    alertslist.add(player.getName());
-                    player.sendMessage(ChatColor.RED + "You have disabled xray alerts");
+                    player.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                 }
 
             } else {
-                player.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+                System.out.println("You must be a player to do this!");
             }
-
-
         } else {
-            System.out.println("You must be a player to do this!");
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                if(player.hasPermission("antixray.alerts")) {
+                    player.sendMessage(ChatColor.RED + "Did you mean /axalerts?");
+                } else {
+                    player.sendMessage(ChatColor.RED + "You don't have permission to do this!");
+                }
+            } else {
+                System.out.println("You must be a player to do this!");
+            }
         }
         return true;
     }

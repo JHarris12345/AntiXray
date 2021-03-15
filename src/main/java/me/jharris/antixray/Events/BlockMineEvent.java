@@ -94,18 +94,18 @@ public class BlockMineEvent implements Listener {
                 int ycord = event.getBlock().getLocation().getBlockY();
                 int zcord = event.getBlock().getLocation().getBlockZ();
                 Integer blocknumber = xrayers.get(player);
+                String message = plugin.getConfig().getString("AlertMessage");
 
                 plugin.getServer().getScheduler().cancelTasks(plugin);
                 xrayers.remove(player);
                 System.out.println("[AntiXray] " + player + " might be using xray at " + world + ": " + xcord + ", " + ycord + ", " + zcord);
 
-                ArrayList<String> stafflist = new ArrayList<String>();
                 for (Player staff : Bukkit.getOnlinePlayers()) {
                     if (staff.hasPermission("xray.alerts")) {
-                        stafflist.add(staff.getName());
 
                         if (!Alerts.alertslist.contains(staff.getName())) {
-                            staff.sendMessage(ChatColor.RED + player + " might be using xray at " + world + ": " + xcord + ", " + ycord + ", " + zcord);
+                            //staff.sendMessage(ChatColor.RED + player + " might be using xray at " + world + ": " + xcord + ", " + ycord + ", " + zcord);
+                            staff.sendMessage(ChatColor.translateAlternateColorCodes('&', message).replaceAll("%player%", player).replaceAll("%world%", world).replaceAll("%xcord%", String.valueOf(xcord)).replaceAll("%ycord%", String.valueOf(ycord)).replaceAll("%zcord%", String.valueOf(zcord)));
                         } else return;
                     }
                 }

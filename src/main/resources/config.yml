@@ -23,3 +23,11 @@ World-Blacklist:
 
 # If this is false, players in creative mode will not get flagged for possible xray. It is recommended to keep this false
 CheckCreative: false
+
+# Set the alert message that is sent to all players with the "xray.alerts" permission. You can use the following placeholders:
+#   %player% - Returns the player suspected of xraying
+#   %world% - Returns the name of the world the player is possibly xraying in
+#   %xcord% - Returns the X-cord of the location the player is possibly xraying
+#   %ycord% - Returns the Y-cord of the location the player is possibly xraying
+#   %zcord% - Returns the Z-cord of the location the player is possibly xraying
+AlertMessage: "&c%player% might be using xray at %world%: %xcord%, %ycord%, %zcord%"
