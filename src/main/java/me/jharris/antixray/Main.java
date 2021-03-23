@@ -2,7 +2,10 @@ package me.jharris.antixray;
 
 import jdk.nashorn.internal.ir.Block;
 import me.jharris.antixray.Commands.Alerts;
+import me.jharris.antixray.Commands.Troll;
 import me.jharris.antixray.Events.BlockMineEvent;
+import me.jharris.antixray.Events.CoalDropEvent;
+import me.jharris.antixray.Events.PlayerLogout;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,7 +20,10 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         System.out.println("The plugin has been enabled!");
         getServer().getPluginManager().registerEvents(new BlockMineEvent(this),this);
+        getServer().getPluginManager().registerEvents(new CoalDropEvent(this),this);
+        getServer().getPluginManager().registerEvents(new PlayerLogout(this),this);
         getServer().getPluginCommand("axalerts").setExecutor(new Alerts(this));
+        getServer().getPluginCommand("axtroll").setExecutor(new Troll(this));
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 

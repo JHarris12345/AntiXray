@@ -61,7 +61,7 @@ public class Commands implements CommandExecutor {
                         } else {
                             player.sendMessage(ChatColor.RED + "You don't have permission to do this!");
                         }
-                    }
+                    } return true;
 
                     if (args[0].equalsIgnoreCase("help")) {
                         if(player.hasPermission("antixray.alerts")) {
