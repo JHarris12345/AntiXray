@@ -3,10 +3,15 @@ package me.jharris.antixray.Events;
 import me.jharris.antixray.Commands.Alerts;
 import me.jharris.antixray.Main;
 import net.kyori.adventure.text.format.TextColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -94,7 +99,11 @@ public class BlockMineEvent implements Listener {
                 int ycord = event.getBlock().getLocation().getBlockY();
                 int zcord = event.getBlock().getLocation().getBlockZ();
                 Integer blocknumber = xrayers.get(player);
-                String message = plugin.getConfig().getString("AlertMessage");
+                TextComponent message = new TextComponent(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("AlertMessage")).replaceAll("%player%", player).replaceAll("%world%", world).replaceAll("%xcord%", String.valueOf(xcord)).replaceAll("%ycord%", String.valueOf(ycord)).replaceAll("%zcord%", String.valueOf(zcord)));
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpo " + player));
+                message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to teleport to " + player)));
+
+
 
                 plugin.getServer().getScheduler().cancelTasks(plugin);
                 xrayers.remove(player);
@@ -105,7 +114,7 @@ public class BlockMineEvent implements Listener {
 
                         if (!Alerts.alertslist.contains(staff.getName())) {
                             //staff.sendMessage(ChatColor.RED + player + " might be using xray at " + world + ": " + xcord + ", " + ycord + ", " + zcord);
-                            staff.sendMessage(ChatColor.translateAlternateColorCodes('&', message).replaceAll("%player%", player).replaceAll("%world%", world).replaceAll("%xcord%", String.valueOf(xcord)).replaceAll("%ycord%", String.valueOf(ycord)).replaceAll("%zcord%", String.valueOf(zcord)));
+                            staff.sendMessage(message);
                         } else return;
                     }
                 }
