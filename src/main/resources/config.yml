@@ -33,10 +33,10 @@ CheckCreative: false
 AlertMessage: "&c%player% might be using xray at %world%: %xcord%, %ycord%, %zcord%"
 
 # This is a fun feature to troll xrayers. If you you have this enabled then you are able to do /axtroll add [player].
-# If a player is added to the troll list then whenever they mine diamond ore, it will drop what you set the "Drop:"
-# item to below instead of diamonds. To stop trolling them, simply use /axtroll remove [player]. If "RemoveOnLogout"
-# is set to true, then when a player logs out, it will automatically remove them from the troll list so you don't
-# have to. When they rejoin they will not be getting trolled anymore.
+# If a player is added to the troll list, then whenever they mine a block from the "Ores:" section above, it will drop
+# what you set the "Drop:" item to below instead of the usual drops. To stop trolling them, simply use /axtroll remove [player].
+# If "RemoveOnLogout" is set to true, then when a player logs out, it will automatically remove them from the troll list so
+# you don't have to. When they rejoin they will not be getting trolled anymore.
 TrollCommand:
   Enabled: false
   Drop: COAL
